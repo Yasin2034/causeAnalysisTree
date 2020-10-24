@@ -23,7 +23,6 @@ export default function CauseTree() {
     const [nodeClickCommand, setNodeClickCommand] = useState({ execute: undefined })
     const [selectedButton, setSelectedButton] = useState({ addB: false, updateB: false, deleteB: false, infoB: false })
 
-
     const infoInputNameError = () => toast.error("Lütfen bir neden giriniz!")
     const infoSelectNodeError = () => toast.error("Lütfen bir kök seçiniz!")
 
