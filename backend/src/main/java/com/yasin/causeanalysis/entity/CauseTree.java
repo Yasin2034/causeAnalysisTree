@@ -34,9 +34,4 @@ public class CauseTree {
 	private List<CauseTree> children = new ArrayList<>();
 	
 	
-	
-	
-	
-	
-	
 }
