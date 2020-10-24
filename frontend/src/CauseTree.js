@@ -99,7 +99,6 @@ export default function CauseTree() {
 
 
     const changeButtonCommand = (op) => setButtonCommand({ execute: op })
-
     const op = () => buttonCommand.execute(inputName, tree, selectedNode)
 
     const changeInputName = (e) => setInputName(e.target.value)
@@ -108,7 +107,6 @@ export default function CauseTree() {
     useEffect(() => { changeNodeClickCommand(selectNode) }, [])
 
     const changeNodeClickCommand = (operation) => setNodeClickCommand({ execute: operation })
-
     const executeNodeClickCommand = (tree, e) => nodeClickCommand.execute(tree, e)
 
 
