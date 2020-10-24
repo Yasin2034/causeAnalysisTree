@@ -25,7 +25,6 @@ export default function CauseTree() {
 
 
     const infoInputNameError = () => toast.error("Lütfen bir neden giriniz!")
-
     const infoSelectNodeError = () => toast.error("Lütfen bir kök seçiniz!")
 
     const isValidate = (inputName, selectedNode) => {
@@ -99,32 +98,20 @@ export default function CauseTree() {
     }
 
 
-    const changeButtonCommand = (op) => {
-        setButtonCommand({ execute: op })
-    }
+    const changeButtonCommand = (op) => setButtonCommand({ execute: op })
 
-    const op = () => {
-        if (buttonCommand.execute) buttonCommand.execute(inputName, tree, selectedNode)
-    }
+    const op = () => buttonCommand.execute(inputName, tree, selectedNode)
 
-    const changeInputName = (e) => {
-        setInputName(e.target.value)
-    }
-    const selectNode = (tree, e) => {
-        setSelectedNode(e)
-    }
+    const changeInputName = (e) => setInputName(e.target.value)
+    const selectNode = (tree, e) => setSelectedNode(e)
 
-    useEffect(() => {
-        changeNodeClickCommand(selectNode)
-    }, [])
+    useEffect(() => { changeNodeClickCommand(selectNode) }, [])
 
-    const changeNodeClickCommand = (operation) => {
-        setNodeClickCommand({ execute: operation })
-    }
+    const changeNodeClickCommand = (operation) => setNodeClickCommand({ execute: operation })
 
-    const executeNodeClickCommand = (tree, e) => {
-        if (nodeClickCommand.execute) nodeClickCommand.execute(tree, e)
-    }
+    const executeNodeClickCommand = (tree, e) => nodeClickCommand.execute(tree, e)
+
+
     const selectAddButton = () => {
         changeNodeClickCommand(selectNode)
         setSelectedButton({ addB: true });
