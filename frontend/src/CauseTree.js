@@ -12,10 +12,7 @@ const circleNode = {
 }
 export default function CauseTree() {
 
-    const [tree, setTree] = useState({
-        name: 'Kök Neden',
-        children: []
-    })
+    const [tree, setTree] = useState({ name: 'Kök Neden', children: [] })
 
     const [selectedNode, setSelectedNode] = useState(undefined)
     const [inputName, setInputName] = useState('')
@@ -36,6 +33,17 @@ export default function CauseTree() {
             return false
         }
         return true
+    }
+
+    const getNode = (tempTree, selectedNode) => {
+        var que = []
+        que.push(tempTree)
+        while (que.length != 0) {
+            var r = que.shift()
+            if (r.name == selectedNode.name)
+                return r;
+            r.children.forEach(r => que.push(r))
+        }
     }
 
     const add = (inputName, tree, selectedNode) => {
@@ -65,17 +73,6 @@ export default function CauseTree() {
         toast.success("Seçtiğiniz kök değiştirildi")
         setSelectedNode(undefined)
         setTree({ ...tempTree })
-    }
-
-    const getNode = (tempTree, selectedNode) => {
-        var que = []
-        que.push(tempTree)
-        while (que.length != 0) {
-            var r = que.shift()
-            if (r.name == selectedNode.name)
-                return r;
-            r.children.forEach(r => que.push(r))
-        }
     }
 
     const deleteNode = (tree, selectedNode) => {
@@ -129,33 +126,33 @@ export default function CauseTree() {
     return (
         <Container className="mt-5">
             <ToastContainer />
-            <div className={"d-flex justify-content-center"}>
-                {
-                    <span className="mt-2"><b>İşlem Seçiniz:</b>
-                        <Button color="primary" className="ml-1" onClick={() => { selectAddButton() }} color={buttonColor(selectedButton.addB)}>Ekle</Button>
-                        <Button color="primary" className="ml-1" onClick={() => { selectUpdateButton() }} color={buttonColor(selectedButton.updateB)}>Düzenle</Button>
-                        <Button color="primary" className="ml-1" onClick={() => { selectDeleteButton() }} color={buttonColor(selectedButton.deleteB)}>Kaldır</Button>
-                    </span>}
+            <div className="d-flex justify-content-center">
+                <span className="mt-2"><b>İşlem Seçiniz:</b>
+                    <Button color="primary" className="ml-1" onClick={() => selectAddButton()} color={buttonColor(selectedButton.addB)}>Ekle</Button>
+                    <Button color="primary" className="ml-1" onClick={() => selectUpdateButton()} color={buttonColor(selectedButton.updateB)}>Düzenle</Button>
+                    <Button color="primary" className="ml-1" onClick={() => selectDeleteButton()} color={buttonColor(selectedButton.deleteB)}>Kaldır</Button>
+                </span>
             </div>
-            { (selectedButton.addB || selectedButton.updateB) && <InputGroup className="mt-2">
-                <InputGroupAddon addonType="prepend">
-                    <InputGroupText className="border-0" >Neden: </InputGroupText>
-                </InputGroupAddon>
-                <Input value={inputName} onChange={changeInputName} />
-                <Button onClick={() => { op() }} color="primary">{selectedButton.addB ? "Ekle" : "Düzenle"}</Button>
-            </InputGroup>}
-            <div
-                className="d-flex justify-content-center"
-                style={{
-                    height: '80vh',
-                }}  >
+
+            { (selectedButton.addB || selectedButton.updateB)
+                &&
+                <InputGroup className="mt-2">
+                    <InputGroupAddon addonType="prepend">
+                        <InputGroupText className="border-0" >Neden: </InputGroupText>
+                    </InputGroupAddon>
+                    <Input value={inputName} onChange={changeInputName} />
+                    <Button onClick={() => op()} color="primary">{selectedButton.addB ? "Ekle" : "Düzenle"}</Button>
+                </InputGroup>
+            }
+
+            <div className="d-flex justify-content-center" style={{ height: '80vh' }}  >
                 <Tree
                     nodeSvgShape={circleNode}
                     orientation="vertical"
                     translate={{ x: window.innerWidth / 3, y: window.innerHeight / 10 }}
                     data={tree}
                     separation={{ siblings: 2, nonSiblings: 2 }}
-                    onClick={(e) => { executeNodeClickCommand(tree, e) }}
+                    onClick={(e) => executeNodeClickCommand(tree, e)}
                 />
             </div>
         </Container>
