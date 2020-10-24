@@ -24,12 +24,9 @@ export default function CauseTree() {
     const [selectedButton, setSelectedButton] = useState({ addB: false, updateB: false, deleteB: false, infoB: false })
 
 
-    const infoInputNameError = () => {
-        toast.error("Lütfen bir neden giriniz!")
-    }
-    const infoSelectNodeError = () => {
-        toast.error("Lütfen bir kök seçiniz!")
-    }
+    const infoInputNameError = () => toast.error("Lütfen bir neden giriniz!")
+
+    const infoSelectNodeError = () => toast.error("Lütfen bir kök seçiniz!")
 
     const isValidate = (inputName, selectedNode) => {
         if (!inputName || inputName == "") {
@@ -143,15 +140,17 @@ export default function CauseTree() {
         changeNodeClickCommand(deleteNode)
     }
 
+    const buttonColor = (isSelected) => isSelected ? "primary" : "muted"
+
     return (
         <Container className="mt-5">
             <ToastContainer />
             <div className={"d-flex justify-content-center"}>
                 {
                     <span className="mt-2"><b>İşlem Seçiniz:</b>
-                        <Button color="primary" className="ml-1" onClick={() => { selectAddButton() }} color={selectedButton.addB ? "primary" : "muted"}>Ekle</Button>
-                        <Button color="primary" className="ml-1" onClick={() => { selectUpdateButton() }} color={selectedButton.updateB ? "primary" : "muted"}>Düzenle</Button>
-                        <Button color="primary" className="ml-1" onClick={() => { selectDeleteButton() }} color={selectedButton.deleteB ? "primary" : "muted"}>Kaldır</Button>
+                        <Button color="primary" className="ml-1" onClick={() => { selectAddButton() }} color={buttonColor(selectedButton.addB)}>Ekle</Button>
+                        <Button color="primary" className="ml-1" onClick={() => { selectUpdateButton() }} color={buttonColor(selectedButton.updateB)}>Düzenle</Button>
+                        <Button color="primary" className="ml-1" onClick={() => { selectDeleteButton() }} color={buttonColor(selectedButton.deleteB)}>Kaldır</Button>
                     </span>}
             </div>
             { (selectedButton.addB || selectedButton.updateB) && <InputGroup className="mt-2">
