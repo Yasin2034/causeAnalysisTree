@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class CauseTreeServiceImpl implements CauseTreeService {
-	
+
 	private final CauseTreeRepository causeTreeRepository;
 
 	@Override
@@ -23,9 +23,8 @@ public class CauseTreeServiceImpl implements CauseTreeService {
 	@Override
 	public CauseTree updateById(Long id, CauseTree causeTree) {
 		boolean isExist = causeTreeRepository.existsById(id);
-		if(!isExist)
-			throw new CauseTreeNotFoundException("Cause tree not found with id:" +id);
-		
+		if (!isExist)
+			throw new CauseTreeNotFoundException("Cause tree not found with id:" + id);
 		return causeTreeRepository.save(causeTree);
 	}
 
@@ -36,9 +35,8 @@ public class CauseTreeServiceImpl implements CauseTreeService {
 
 	@Override
 	public CauseTree findById(Long id) {
-		return causeTreeRepository
-				.findById(id)
-				.orElseThrow(()-> new CauseTreeNotFoundException("Cause tree not found with id:" +id));
+		return causeTreeRepository.findById(id)
+				.orElseThrow(() -> new CauseTreeNotFoundException("Cause tree not found with id:" + id));
 	}
 
 }

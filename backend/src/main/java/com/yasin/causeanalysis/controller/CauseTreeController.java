@@ -32,14 +32,14 @@ public class CauseTreeController {
 	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<CauseTree> save(@PathVariable Long id,@Valid @RequestBody CauseTree causeTree){
+	public ResponseEntity<CauseTree> update(@PathVariable Long id,@Valid @RequestBody CauseTree causeTree){
 		CauseTree saved = causeTreeService.updateById(id,causeTree);
 		return ResponseEntity.ok(saved);
 	}
 	
 
 	@GetMapping("/{id}")
-	public ResponseEntity<CauseTree> save(@PathVariable Long id){
+	public ResponseEntity<CauseTree> findById(@PathVariable Long id){
 		CauseTree causeTree = causeTreeService.findById(id);
 		return ResponseEntity.ok(causeTree);
 	}
